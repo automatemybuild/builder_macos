@@ -1,0 +1,12 @@
+Warning: Files in $HOME/bin will be delete or overwritten as part of the git_update.sh
+
+1. Update ~/bin/files, .bash_profile, .bashrc_*, and .vimrc files from ~/git/builder_macos/
+
+2. Push
+alias gp='cd $HOME/git/builder_macos; git add *; git commit -m `date '+%y%m%d'`; git push -u origin main'
+
+3. Sync files to local
+alias gg='$HOME/bin/git_update.sh'
+
+
+
