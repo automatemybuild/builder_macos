@@ -8,7 +8,7 @@ By using these scripts, you acknowledge and accept the risk of potential data lo
 
 1. Clone the repository to your local machine:
    ```sh
-   git clone https://github.com/automatemybuild/builder_macos.git ~/git/builder
+   git clone https://github.com/automatemybuild/builder_macos.git ~/git/builder_macos
    ```
 2. Navigate to the `dotfiles` directory:
    ```sh
