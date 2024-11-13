@@ -14,7 +14,8 @@ function header () {
 }
 function packagemgr { 
     # Install Homebrew if not already installed
-    if [ ! -x "$command -v brew" ];then
+    #if [ ! -x "$command -v brew" ]; then
+    if ! command -v brew; then
 	echo "Homebrew not installed. Installing Homebrew."
         xcode-select --install
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

@@ -3,6 +3,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH=$PATH:$HOME/bin
 export VISUAL=vim
 export EDITOR=vim
+[ -x "/opt/homebrew/bin/brew" ] && export PATH="$PATH:/opt/homebrew/bin"
 
 # Source all files starting with .bashrc_
 for file in $HOME/.bashrc_*; do
