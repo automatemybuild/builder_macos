@@ -1,0 +1,10 @@
+# Created 11/12/2024
+brew_update_upgrade_clean
+# Common packages (python, bash, zsh, git, tree, tmux, nmap, mtr, wireshark, iftop, iperf3, htop, inxi, figlet)
+install_common_packages
+# Applications (google-chrome, firefox, discord, slack, gimp, vlc, keyboardcleantool, bcompare, quodlibet, electrum)
+install_common_applications
+# Fonts (soruce-code-pro, lato, oswald)
+install_common_fonts
+# Custom MacOS settings (Mouse scroll, screen shots, Bluetooth in menu bar)
+custom_macos_settings
