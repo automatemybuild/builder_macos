@@ -8,3 +8,11 @@ install_common_applications
 install_common_fonts
 # Custom MacOS settings (Mouse scroll, screen shots, Bluetooth in menu bar)
 custom_macos_settings
+# Install DMG packages from URL - Update for latest versions!
+./installdmg https://github.com/keepassxreboot/keepassxc/releases/download/2.7.9/KeePassXC-2.7.9-arm64.dmg
+# Check for lastest version: https://signal.org/download/macos/
+./installdmg https://updates.signal.org/desktop/signal-desktop-mac-universal-7.32.0.dmg
+./installdmg https://proton.me/download/mail/macos/ProtonMail-desktop.dmg
+./installdmg https://developers.yubico.com/yubioath-flutter/Releases/yubico-authenticator-latest-mac.dmg
+# Requires manual download from browser
+# https://www.insta360.com/download/hot-download

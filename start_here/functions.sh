@@ -61,6 +61,7 @@ function install_common_packages {
         "htop"
         "inxi"
         "figlet"
+        "gnupg"
     )
     # Loop over the array to install each application.
     for package in "${packages[@]}"; do
@@ -86,6 +87,7 @@ function install_common_applications {
         "beyond-compare"
         "quodlibet"
         "electrum"
+        "synology-drive"
     )
     
     # Loop over the array to install each application.

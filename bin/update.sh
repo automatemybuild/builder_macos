@@ -36,6 +36,7 @@ function update_os_packages {
         brew upgrade
         brew upgrade --cask
         brew cleanup
+        sudo softwareupdate -i -a
     else
         echo ">> No package installers found."
         return 0

@@ -1,0 +1,81 @@
+#!/bin/bash
+#
+# installdmg - Created to install .dmg packaged from a provided URL
+#
+
+# Check if the URL is provided as an argument
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <URL-to-dmg-file>"
+  exit 1
+fi
+
+# Assign the URL and the filename
+URL="$1"
+DMG_NAME=$(basename "$URL")
+
+# Download the DMG file
+echo "Downloading DMG from $URL..."
+curl -L -o "$DMG_NAME" "$URL"
+
+# Check if the download was successful
+if [ $? -ne 0 ]; then
+  echo "Download failed!"
+  exit 2
+fi
+
+# Mount the DMG file (removed -quiet for debugging)
+echo "Mounting DMG..."
+MOUNT_OUTPUT=$(hdiutil attach "$DMG_NAME" -nobrowse)
+
+# Check if mounting was successful
+if [ $? -ne 0 ]; then
+  echo "Failed to mount DMG!"
+  exit 3
+fi
+
+# Print the full output of hdiutil for debugging
+echo "hdiutil attach output:"
+echo "$MOUNT_OUTPUT"
+
+# Extract the mount point from the hdiutil output
+MOUNT_DIR=$(echo "$MOUNT_OUTPUT" | grep -o '/Volumes/[^ ]*')
+
+if [ -z "$MOUNT_DIR" ]; then
+  echo "Failed to identify the mounted volume from the output."
+  exit 4
+fi
+
+echo "Mounted at $MOUNT_DIR"
+
+# Look for the .app directory in the mounted volume
+echo "Searching for the .app installer in the mounted DMG..."
+APP_PATH=$(find "$MOUNT_DIR" -type d -iname "KeePassXC.app" -print -quit)
+
+if [ -z "$APP_PATH" ]; then
+  echo "No .app file found in the DMG. Listing contents of the volume:"
+  ls -lR "$MOUNT_DIR"
+  hdiutil detach "$MOUNT_DIR" -quiet
+  exit 5
+fi
+
+# Copy the .app bundle to /Applications
+echo "Installing KeePassXC from $APP_PATH..."
+sudo cp -R "$APP_PATH" /Applications/
+
+# Check if the installation was successful
+if [ $? -eq 0 ]; then
+  echo "Installation completed successfully."
+else
+  echo "Installation failed."
+  exit 6
+fi
+
+# Eject the DMG
+echo "Ejecting DMG..."
+hdiutil detach "$MOUNT_DIR" -quiet
+
+# Clean up the downloaded DMG file
+rm "$DMG_NAME"
+
+echo "Installation process finished."
+
