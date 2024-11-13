@@ -1,0 +1,32 @@
+#!/bin/bash
+# 
+# fix_docker - rebuild
+#
+
+YELLOW='\033[0;33m'                                                             
+WHITE='\033[0;37m'                                                              
+NC='\033[0m' # No Color                                                         
+
+function header () {                                                            
+    line="++++++++++++++++++++++++++++++++++++++++++++++++++"
+    echo -e "${YELLOW}${line}\n${WHITE}${*}${YELLOW}\n${line}${NC}"            
+}                                     
+
+function warning () {                                                            
+    echo -e "${YELLOW}warning: ${WHITE}${*}"            
+}                                     
+
+warning "Use case when docker-compose up reports Error already running but not under docker-compose"
+header "docker-compose ps"
+docker-compose ps
+header "docker container ls -a"
+docker container ls -a
+[[ "$(read -p 'Stop and remove containers. Continue? '; echo $REPLY)" != [Nn]* ]] && 
+header "docker stop \$(docker ps -aq)"
+docker stop $(docker ps -aq)
+header "docker rm \$(docker ps -aq)"
+docker rm $(docker ps -aq)
+[[ "$(read -p 'Restart. Continue? '; echo $REPLY)" != [Nn]* ]] && 
+header "docker-compose up -d"
+docker-compose up -d
+echo "Done"

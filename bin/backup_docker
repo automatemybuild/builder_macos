@@ -1,0 +1,53 @@
+#!/bin/bash
+#
+# backup_docker - backup dockers
+#
+# 02/09/2023 - Created
+# 06/24/2023 - Updated for Alpine OS and $HOME usage
+# 08/29/2023 - Added /etc/fstab check for backup and updated nas_backup_dir if/else logic
+# 03/26/2024 - git repo
+
+bkup_dir=.bkup
+bkup=$HOME/$bkup_dir
+tarfile="$HOME/`hostname -s`_`date '+%Y%m%dT%H%M'`.tar.gz"
+nas_backup_mount_point=$(grep backup /etc/fstab | awk '{print $2}')
+nas_backup_dir="$nas_backup_mount_point/`hostname`"
+
+#Exit if docker-compose.yml is not found
+[ ! -f $HOME/docker-compose.yml ] && echo "No docker-compose.yml file not found" && exit 1
+
+#Prepare local directory
+[ -d $bkup.old ] && printf "> Removing $bkup.old\n" && rm -fr $bkup.old
+[ -d $bkup ] && printf "> Moving $bkup $bkup.old\n" && mv $bkup $bkup.old
+[ ! -d $bkup ] && printf "> Creating $bkup directories\n" && \
+mkdir -p $bkup/bin $bkup/home $bkup/system $bkup/data $bkup/netmon $bkup/log $bkup/pihole
+crontab -l > $bkup/home/crontab.out
+
+#Copy files to local directory
+[ -f $HOME/docker-compose.yml ] && cp  $HOME/docker-compose.yml* $bkup/home
+[ -d $HOME/bin ] && cp  $HOME/bin/* $bkup/bin
+[ -d $HOME/netmon ] && cp  $HOME/netmon/* $bkup/netmon
+[ -d $HOME/pihole ] && cp  $HOME/pihole/* $bkup/pihole
+[ -d $HOME/log ] && cp  $HOME/log/* $bkup/log
+[ -d $HOME/data ] && cp -r $HOME/data/* $bkup/data
+[ -d $HOME/.config ] && cp -r $HOME/.config $bkup/home
+cp  $HOME/.bash* $bkup/home
+cp -r $HOME/.vim* $bkup/home
+
+#Create compressed tar file
+printf "> creating tar file $tarfile...\n"
+cd $HOME
+[ -f $tarfile ] && printf "> $tarfile exists - removing\n" && rm $tarfile
+tar --exclude='*.jpg' -czf $tarfile $bkup_dir
+
+#Copy tar file to remote
+if [ ! -d $nas_backup_dir ] ;then
+    echo -e "$(date) local_copy" > $HOME/.lastbackup
+    echo "Local backup complete. NAS backup ($nas_backup_dir) partition not mounted. Exiting."
+    exit
+else
+    cp -fv $tarfile $nas_backup_dir
+    ls -l $nas_backup_dir
+    echo -e "$(date) remote_copy" > $HOME/.lastbackup
+fi
+
