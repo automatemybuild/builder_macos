@@ -102,7 +102,8 @@ function dns {
 }
 
 function gateway {
-    gateway=$(route -n | grep 'UG[ \t]' | awk '{print $2}' 2>/dev/null)
+    #gateway=$(route -n | grep 'UG[ \t]' | awk '{print $2}' 2>/dev/null)
+    gateway=$(route -n get default | grep 'gateway' | awk '{print $2}' 2>/dev/null)
     if [[ "$gateway" == "" ]] ;then critical gateway; else normal ${gateway}; fi
 }
 

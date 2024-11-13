@@ -123,6 +123,13 @@ function install_common_fonts {
 }
 fuction custom_macos_settings {
     echo ">> Set scroll as traditional instead of natural"
+    defaults write com.apple.Terminal "FocusFollowsMouse" -bool "true"
+    defaults read com.apple.Terminal "FocusFollowsMouse"
+    echo "Manual: killall Terminal #needed to apply setting"
+    # Reset to default:
+    # defaults write com.apple.Terminal "FocusFollowsMouse" -bool "true" && killall Terminal
+
+    echo ">> Set scroll as traditional instead of natural"
     defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
     killall Finder
         
@@ -135,3 +142,4 @@ fuction custom_macos_settings {
     defaults write com.apple.controlcenter "NSStatusItem Visible Bluetooth" -bool true
     killall ControlCenter
 }
+

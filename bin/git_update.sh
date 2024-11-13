@@ -18,7 +18,7 @@ function update_local () {
 	fi
 }
 
-cd $HOME/git/builder; git pull https://github.com/automatemybuild/builder_macos
+cd $HOME/git/builder_macos; git pull https://github.com/automatemybuild/builder_macos
 
 local_dir=$HOME/bin
 source_dir=$HOME/git/builder_macos/bin/./
