@@ -1,12 +1,14 @@
-Warning: Files in $HOME/bin will be delete or overwritten as part of the git_update.sh
+Warning: Files in this location are part of repo that are deleted and overwritted by the following:
+git clone https://github.com/automatemybuild/builder_macos.git ~/git/builder_macos
 
-1. Update ~/bin/files, .bash_profile, .bashrc_*, and .vimrc files from ~/git/builder_macos/
+1. Update main repo at ~/git/builder_macos/
+   Includes: ~/bin, ~/nastools, .bash_profile, .bashrc_*, and .vimrc files
 
-2. Push
-alias gp='cd $HOME/git/builder_macos; git add *; git commit -m `date '+%y%m%d'`; git push -u origin main'
+2. Git Push
+   alias gp='cd $HOME/git/builder_macos; git add *; git commit -m `date '+%y%m%d'`; git push -u origin main'
 
-3. Sync files to local
-alias gg='$HOME/bin/git_update.sh'
+3. Sync files from repo to local
+   alias gg='$HOME/bin/git_update.sh'
 
 
 
