@@ -62,6 +62,7 @@ function install_common_packages {
         "inxi"
         "figlet"
         "gnupg"
+        "virt-manager"
     )
     # Loop over the array to install each application.
     for package in "${packages[@]}"; do

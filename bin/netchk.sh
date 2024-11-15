@@ -158,7 +158,7 @@ while true ; do
 			do 
 				last=$hostname
 				x=$(($x-1))
-				PING=$(ping $hostname -q -c $COUNT -w $WAIT -s $SIZE | grep packet.loss | grep -o "[0-9]*\%" | tr -cd [:digit:] 2> /dev/null )
+				PING=$(ping $hostname -q -c $COUNT -W $WAIT -s $SIZE | grep packet.loss | grep -o "[0-9]*\%" | tr -cd [:digit:] 2> /dev/null )
 				if [ "$PING" == "0" ]
 				then
 					printf "!"
