@@ -62,6 +62,8 @@ function install_common_packages {
         "inxi"
         "figlet"
         "gnupg"
+        "qemu"
+        "libvirt"
         "virt-manager"
     )
     # Loop over the array to install each application.
