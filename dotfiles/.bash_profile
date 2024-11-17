@@ -3,6 +3,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 export PATH=$PATH:$HOME/bin
 export VISUAL=vim
 export EDITOR=vim
+export NAS=/Volumes/nfs_share
 [ -x "/opt/homebrew/bin/brew" ] && export PATH="$PATH:/opt/homebrew/bin"
 
 # Source all files starting with .bashrc_
