@@ -10,7 +10,7 @@
 ### Variables
 line=$(printf '%*s\n' "${COLUMNS:-$(tput cols)}" '' | tr ' ' =)
 device=~/nas_mirror
-path=/opt/diskstation
+path=$NAS
 outfile=~/log/rsync_$(date +%Y%m%dT%H%M).log
 last=$device/LAST_$(date +%Y%m%dT%H%M)
 

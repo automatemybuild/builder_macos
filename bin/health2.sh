@@ -62,11 +62,12 @@ function cpu_load {
     tolerance=(2)
     if [[ "$load" -gt "$tolerance" ]]; then
         critical cpu_load
-        top -b -n 1 | head -10 >> $output 2>&1
+        #top -b -n 1 | head -10 >> $output 2>&1
+        top -n 1 | head -10 >> $output 2>&1
     else
         normal cpu_load
     fi
-    [ "$level" == "verbose" ] && top -b -n 1 | head -20
+    [ "$level" == "verbose" ] && top -n 1 | head -20
 }
 
 function free_mem {

@@ -3,17 +3,17 @@
 # rsync_nas_offsite_v2.sh - New backup mirror process created by AI
 #
 # 1. Mount Veracrypt partition 
-# 2. Confirm /opt/diskstation/partitions are mounted
+# 2. Confirm $NAS/partitions are mounted
 # 3. Run clean_thumbs.py to remove thumbnails saved by diskstation
 # 4. Run this command as root to avoid any source read issues
-#    sudo su; /opt/diskstation/bin/nas/rsync_nas_offsite_v2.sh
+#    sudo su; $NAS/bin/nas/rsync_nas_offsite_v2.sh
 #
 # 09/01/2023 - removed --checksum from rsync due to possible performance. Not sure if rsync replaces changed files.
 
 umask 0000
 
 # Set the source and backup base directories
-source_base_dir="/opt/diskstation/"
+source_base_dir="$NAS/"
 backup_base_dir="/media/veracrypt1/"
 
 # List of directories to mirror

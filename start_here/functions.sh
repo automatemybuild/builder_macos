@@ -88,7 +88,7 @@ function install_common_applications {
         "vlc"
         "keyboardcleantool"
         "beyond-compare"
-        "quodlibet"
+        "foobar2000"
         "electrum"
         "synology-drive"
     )
