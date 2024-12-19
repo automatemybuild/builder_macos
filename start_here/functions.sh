@@ -66,6 +66,7 @@ function install_common_packages {
         #"libvirt"
         #"virt-manager"
         "xnviewmp"
+        "p7zip"
     )
     # Loop over the array to install each application.
     for package in "${packages[@]}"; do
